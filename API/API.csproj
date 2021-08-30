@@ -7,8 +7,8 @@
   <Target Name="PrePublishTarget" AfterTargets="Publish">
     <Exec Command="echo  &quot;... Migrating Database ...&quot;" />   
     <!-- <Exec Command="dotnet-ef" />
-    <Exec Command="dotnet tool restore" />
-    <Exec Command="dotnet ef database update" /> -->
+    <Exec Command="dotnet tool restore" /> -->
+    <Exec Command="dotnet ef database update" />
     <Exec Command="echo  &quot;.......End Migrating Database ...&quot;" />
 </Target>
 
