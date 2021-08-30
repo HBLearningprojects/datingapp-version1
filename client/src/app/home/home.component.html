@@ -1,0 +1,7 @@
+<div class="container mt-5">
+    <div *ngIf="!formMode" style="text-align: center;">
+        <h1>Find your match</h1>
+        <p class="lead">Come on in to view your matches.... all you nedd to do is sign up!</p>        
+        <app-login (cancelLogin)="cancelLoginMode($event)"></app-login>                 
+    </div>    
+</div>
