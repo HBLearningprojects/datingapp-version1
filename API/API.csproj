@@ -4,13 +4,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <Target Name="PrePublishTarget" AfterTargets="Publish">
-    <Exec Command="echo  &quot;... Migrating Database ...&quot;" />   
+  <!-- <Target Name="PrePublishTarget" AfterTargets="Publish"> -->
+    <!-- <Exec Command="echo  &quot;... Migrating Database ...&quot;" />    -->
     <!-- <Exec Command="dotnet-ef" />
     <Exec Command="dotnet tool restore" /> -->
     <!-- <Exec Command="dotnet ef database update" /> -->
-    <Exec Command="echo  &quot;.......End Migrating Database ...&quot;" />
-</Target>
+    <!-- <Exec Command="echo  &quot;.......End Migrating Database ...&quot;" /> -->
+<!-- </Target> -->
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
