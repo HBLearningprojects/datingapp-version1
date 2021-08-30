@@ -32,6 +32,13 @@ namespace API
                 var userManager = services.GetRequiredService<UserManager<AppUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
                 await context.Database.MigrateAsync();
+            
+               //Manually run any outstanding migrations if configured to do so
+                var envAutoMigrate = Environment.GetEnvironmentVariable("AUTO_MIGRATE");
+                if (envAutoMigrate != null && envAutoMigrate == "true")
+                {
+                    await context.Database.MigrateAsync();
+                }
                 await Seed.SeedUsers(userManager, roleManager);
             }
             catch (Exception ex)
