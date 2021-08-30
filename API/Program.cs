@@ -37,12 +37,12 @@ namespace API
 
                 // await context.Database.MigrateAsync(); 
                 //Manually run any outstanding migrations if configured to do so
-                var envAutoMigrate = Environment.GetEnvironmentVariable("AUTO_MIGRATE");
-                if (envAutoMigrate != null && envAutoMigrate == "true")
-                {                    
-                    await context.Database.MigrateAsync();  
-                    // context.Database.Migrate();
-                }
+                // var envAutoMigrate = Environment.GetEnvironmentVariable("AUTO_MIGRATE");
+                // if (envAutoMigrate != null && envAutoMigrate == "true")
+                // {                    
+                //     await context.Database.MigrateAsync();  
+                //     // context.Database.Migrate();
+                // }
             }
             catch (Exception ex)
             {
