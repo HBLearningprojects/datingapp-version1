@@ -26,19 +26,13 @@ namespace API
             // using var scope = host.Services.CreateScope();
             // var services = scope.ServiceProvider;
             var services = webScope.ServiceProvider;
+            var context = services.GetRequiredService<DataContext>();
             try
             {
-                var context = services.GetRequiredService<DataContext>();
+                // var context = services.GetRequiredService<DataContext>();
                 var userManager = services.GetRequiredService<UserManager<AppUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
-                await context.Database.MigrateAsync();
-            
-               //Manually run any outstanding migrations if configured to do so
-                var envAutoMigrate = Environment.GetEnvironmentVariable("AUTO_MIGRATE");
-                if (envAutoMigrate != null && envAutoMigrate == "true")
-                {
-                    await context.Database.MigrateAsync();
-                }
+                await context.Database.MigrateAsync();  
                 await Seed.SeedUsers(userManager, roleManager);
             }
             catch (Exception ex)
@@ -46,6 +40,15 @@ namespace API
                 var logger = services.GetRequiredService<ILogger<Program>>();
                 logger.LogError(ex, "An Error Occurred during MIgration.");                
             }
+
+             //Manually run any outstanding migrations if configured to do so
+            var envAutoMigrate = Environment.GetEnvironmentVariable("AUTO_MIGRATE");
+            if (envAutoMigrate != null && envAutoMigrate == "true")
+            {                    
+                await context.Database.MigrateAsync();  
+                context.Database.Migrate();
+            }
+
             // await host.RunAsync();
             await webHost.RunAsync();
         }
