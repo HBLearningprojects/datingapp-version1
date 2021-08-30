@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+
+using API.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace API {
     public class Startup {
         private readonly IConfiguration _config;
@@ -30,8 +34,12 @@ namespace API {
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure (IApplicationBuilder app, IWebHostEnvironment env) {
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext dataContext)
+        {
+            // migrate any database changes on startup (includes initial db creation)
+            // dataContext.Database.Migrate();
+
             app.UseMiddleware<ExceptionMiddleware> ();
 
             app.UseHttpsRedirection ();
@@ -56,5 +64,32 @@ namespace API {
                 endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
+                
+        // // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // public void Configure (IApplicationBuilder app, IWebHostEnvironment env) {
+        //     app.UseMiddleware<ExceptionMiddleware> ();
+
+        //     app.UseHttpsRedirection ();
+
+        //     app.UseRouting ();
+
+        //     app.UseCors (policy => policy.AllowAnyHeader ()
+        //         .AllowAnyMethod ()
+        //         .AllowCredentials ()
+        //         .WithOrigins ("https://localhost:5001"));
+
+        //     app.UseAuthentication ();
+        //     app.UseAuthorization ();
+
+        //     app.UseDefaultFiles ();
+        //     app.UseStaticFiles ();
+
+        //     app.UseEndpoints (endpoints => {
+        //         endpoints.MapControllers ();
+        //         endpoints.MapHub<PresenceHub> ("hubs/presence");
+        //         endpoints.MapHub<MessageHub> ("hubs/message");
+        //         endpoints.MapFallbackToController("Index", "Fallback");
+        //     });
+        // }
     }
 }

@@ -27,6 +27,7 @@ namespace API
             // var services = scope.ServiceProvider;
             var services = webScope.ServiceProvider;
             var context = services.GetRequiredService<DataContext>();
+            // context.Database.Migrate();
             try
             {                
                 var userManager = services.GetRequiredService<UserManager<AppUser>>();
